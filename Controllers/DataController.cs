@@ -1,7 +1,7 @@
 using hng_uno.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace hng_uno.Controllers;
+namespace hngx_uno.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -29,17 +29,17 @@ public class DataController : ControllerBase
     ///     "current_day": "Monday",
     ///     "utc_time": "2023-08-21T15:04:05Z",
     ///     "track": "backend",
-    ///     "github_file_url": "https://github.com/username/repo/blob/main/file_name.ext",
-    ///     "github_repo_url": "https://github.com/username/repo",
+    ///     "github_file_url": "https://github.com/poopsicles/hngx-uno/blob/main/Program.cs",
+    ///     "github_repo_url": "https://github.com/poopsicles/hngx-uno",
     ///     “status_code”: 200
     /// }   
     /// </code>
     /// </remarks>
-    /// <returns>The response in json format</returns>
+    /// <returns>The response in JSON format</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public List<Data> GetData(string slack_name, string track)
+    public Data GetData(string slack_name, string track)
     {
-        return new List<Data>() { new() { slack_name = slack_name, track = track } };
+        return new() { slack_name = slack_name, track = track };
     }
 }
