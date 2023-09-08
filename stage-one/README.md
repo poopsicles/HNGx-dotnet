@@ -14,7 +14,7 @@ $ curl -X "GET" "https://hngx-stage-one-c.onrender.com?slack_name=example_name&a
     "track": "backend",
     "github_file_url": "https://github.com/poopsicles/HNGx-dotnet/blob/main/stage-one/Program.cs",
     "github_repo_url": "https://github.com/poopsicles/HNGx-dotnet",
-    “status_code”: 200
+    "status_code": 200
 }   
 ```
 
