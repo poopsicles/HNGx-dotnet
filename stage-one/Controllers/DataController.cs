@@ -16,9 +16,7 @@ public class DataController : ControllerBase
     /// <remarks>
     /// Sample request:
     /// <code>
-    /// curl -X "GET" \
-    ///     "http://localhost:5045/api?slack_name=example_name&amp;track=backend" \
-    ///     -H 'accept: application/json'
+    /// curl -X "GET" "http://localhost:5045/api?slack_name=example_name&amp;track=backend" -H "accept: application/json"
     /// </code>
     ///    
     /// Sample response:
@@ -29,8 +27,8 @@ public class DataController : ControllerBase
     ///     "current_day": "Monday",
     ///     "utc_time": "2023-08-21T15:04:05Z",
     ///     "track": "backend",
-    ///     "github_file_url": "https://github.com/poopsicles/hngx-uno/blob/main/Program.cs",
-    ///     "github_repo_url": "https://github.com/poopsicles/hngx-uno",
+    ///     "github_file_url": "https://github.com/poopsicles/HNGx-dotnet/blob/main/stage-one/Program.cs",
+    ///     "github_repo_url": "https://github.com/poopsicles/HNGx-dotnet",
     ///     “status_code”: 200
     /// }   
     /// </code>
