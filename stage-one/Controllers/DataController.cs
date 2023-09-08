@@ -1,4 +1,4 @@
-using hng_uno.Models;
+using hngx_uno.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hngx_uno.Controllers;
@@ -21,7 +21,6 @@ public class DataController : ControllerBase
     ///    
     /// Sample response:
     /// <code>
-    /// 
     /// {
     ///     "slack_name": "example_name",
     ///     "current_day": "Monday",
@@ -29,7 +28,7 @@ public class DataController : ControllerBase
     ///     "track": "backend",
     ///     "github_file_url": "https://github.com/poopsicles/HNGx-dotnet/blob/main/stage-one/Program.cs",
     ///     "github_repo_url": "https://github.com/poopsicles/HNGx-dotnet",
-    ///     “status_code”: 200
+    ///     "status_code": 200
     /// }   
     /// </code>
     /// </remarks>

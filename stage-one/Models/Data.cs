@@ -1,4 +1,4 @@
-namespace hng_uno.Models;
+namespace hngx_uno.Models;
 
 #pragma warning disable IDE1006
 public class Data {
