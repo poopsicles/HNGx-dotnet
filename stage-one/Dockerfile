@@ -14,4 +14,4 @@ RUN dotnet publish -c release -o /app --sc false --ucr --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+ENTRYPOINT ["dotnet", "hngx-uno.dll"]
