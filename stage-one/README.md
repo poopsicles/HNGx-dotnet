@@ -2,8 +2,6 @@
 
 Render link is at [`https://hngx-stage-one-c.onrender.com`](https://hngx-stage-one-c.onrender.com)
 
-You can access the Swagger documentation at [`https://hngx-stage-one-c.onrender.com/swagger/index.html ](https://hngx-stage-one-c.onrender.com/swagger/index.html)
-
 Run it like:
 
 ```sh
