@@ -6,8 +6,8 @@ public class Data {
     public string current_day { get; set; } = DateTime.UtcNow.DayOfWeek.ToString();
     public string utc_time { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
     public string track { get; set; } = "";
-    public string github_file_url { get; set; } = "https://github.com/poopsicles/hngx-uno/blob/main/Program.cs";
-    public string github_repo_url { get; set; } = "https://github.com/poopsicles/hngx-uno";
-    public int status_code { get; set; } = 200;
+    public string github_file_url { get; set; } = new Uri("https://github.com/poopsicles/hngx-uno/blob/main/Program.cs").ToString();
+    public string github_repo_url { get; set; } = new Uri("https://github.com/poopsicles/hngx-uno").ToString();
+    public int status_code { get; set; } = StatusCodes.Status200OK;
 }
 #pragma warning restore IDE1006

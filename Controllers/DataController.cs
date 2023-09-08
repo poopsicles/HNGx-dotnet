@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace hngx_uno.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 [Produces("application/json")]
 public class DataController : ControllerBase
 {
@@ -17,7 +17,7 @@ public class DataController : ControllerBase
     /// Sample request:
     /// <code>
     /// curl -X "GET" \
-    ///     "http://localhost:5045/Data?slack_name=tet&amp;track=tet" \
+    ///     "http://localhost:5045/api?slack_name=example_name&amp;track=backend" \
     ///     -H 'accept: application/json'
     /// </code>
     ///    
