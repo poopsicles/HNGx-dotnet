@@ -60,12 +60,12 @@ For example:
 
 </details>
 
-Live demo is at [`https://hngx-stage-one-c.onrender.com`](https://hngx-stage-one-c.onrender.com)
+Live demo is at [`https://hngx-stage-one-c.onrender.com/api`](https://hngx-stage-one-c.onrender.com/api)
 
 Run it like:
 
 ```sh
-$ curl -X "GET" "https://hngx-stage-one-c.onrender.com?slack_name=example_name&amp;track=backend" -H "accept: application/json"
+$ curl -X "GET" "https://hngx-stage-one-c.onrender.com/api?slack_name=example_name&track=backend" -H "accept: application/json"
 
 {
     "slack_name": "example_name",
