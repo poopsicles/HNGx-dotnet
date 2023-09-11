@@ -2,7 +2,9 @@
 
 I'm on the backend track, because backends are cool, and this is in C# because it's an okay language (and I promised myself I'd do something serious with .NET for a change)
 
-perhaps I'll make a secret Rust version and see how far I can go...
+perhaps I'll make a secret Rust version[^1] and see how far I can go...
+
+[^1]: psst...over here, [poopsicles/HNGx-rusty](https://github.com/poopsicles/HNGx-rusty)
 
 ## Stages cleared:
 
@@ -19,4 +21,5 @@ This is a monorepo, check out the actual folders if you want to see any code
 ## Todo:
 
 - [X] Finish readme
+- [ ] Add license
 - [ ] Add some razzle dazzle 🤩🤩
