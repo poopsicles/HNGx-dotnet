@@ -94,7 +94,6 @@ Host your entire project on GitHub, and provide a well-structured documentation 
 - Detailed Documentation: Documentation should provide clear guidance on how to use the API, including setup, request/response formats, and sample usage.
 
 </details>
-<br />
 
 Live demo is at TODO
 

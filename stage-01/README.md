@@ -59,7 +59,6 @@ For example:
     - Validate the correctness of each data point in the JSON response.
 
 </details>
-<br />
 
 Live demo is at [`https://hngx-stage-one-c.onrender.com`](https://hngx-stage-one-c.onrender.com)
 
