@@ -90,7 +90,7 @@ $ cd HNGx-dotnet/stage-one
 - Build the image:
 
 ```sh
-$ docker build --pull -t hngx-uno/dotnet
+$ docker build . --pull -t hngx-uno/dotnet
 ```
 
 - Run the container:

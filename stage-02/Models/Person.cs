@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hngx_duo.Models;
 
+// actual database model object
 [Index(nameof(Name), IsUnique = true)]
 public class Person {
     public Guid Id { get; set; } = Guid.NewGuid();
@@ -19,6 +20,7 @@ public class Person {
     }
 }
 
+// DTO to hide colour representation
 public class PersonDTO {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;

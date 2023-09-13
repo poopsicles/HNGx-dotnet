@@ -2,7 +2,16 @@ using hngx_duo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationContext>();
+builder.Services.AddDbContext<ApplicationContext>( // TODO: make db location configurable
+    // options => { 
+    //     var folder = Environment.SpecialFolder.LocalApplicationData;
+    //     var path = Environment.GetFolderPath(folder);
+
+    //     var DbPath = Path.Join(path, builder.Configuration["Database Name"]);
+
+    //     options.UseSqlite($"Data Source={DbPath}");
+    // }
+);
 
 // Add services to the container.
 

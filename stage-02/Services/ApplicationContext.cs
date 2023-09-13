@@ -1,5 +1,6 @@
-using hngx_duo.Models;
 using Microsoft.EntityFrameworkCore;
+
+using hngx_duo.Models;
 
 namespace hngx_duo.Services;
 

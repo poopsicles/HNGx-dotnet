@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
+
 using hngx_duo.Models;
 using hngx_duo.Services;
 using hngx_duo.Requests;
-using NuGet.Protocol;
 
 namespace hngx_duo.Controllers
 {
@@ -16,82 +17,100 @@ namespace hngx_duo.Controllers
         public PersonController(ApplicationContext context)
         {
             _context = context;
+
+            context.Database.EnsureCreated();
         }
 
         // GET: api/XXXX-XXXX
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(Guid id)
+        public async Task<ActionResult<PersonDTO>> GetPerson(Guid id)
         {
             if (_context.People == null)
             {
-                return NotFound();
+                return NotFound(); // 404
             }
+
             var person = await _context.People.FindAsync(id);
 
             if (person == null)
             {
-                return NotFound();
+                return NotFound(); // 404
             }
 
-            return person;
-        }
-
-        // PUT: api/Person/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(Guid id, Person person)
-        {
-            if (id != person.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(person).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return person.ToDTO(); // 200 with PersonDTO of entity
         }
 
         // POST: /api
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PersonDTO>> PostPerson(PostPersonRequest request)
         {
             if (_context.People == null)
             {
-                return Problem("Entity set 'ApplicationContext.People'  is null.");
+                return Problem("Entity set 'ApplicationContext.People' is null.");
             }
 
             var validation = request.Validate(_context);
 
-            if (validation.IsSuccess()) {
-                var newPerson = request.ToPerson();
-
-                _context.People.Add(newPerson);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetPerson", new { id = newPerson.Id }, newPerson.ToDTO());
-            } else {
+            if (!validation.IsSuccess())
+            {
+                // 422 with list of errors
                 return UnprocessableEntity(validation.ToJson());
             }
+
+            var newPerson = request.ToPerson();
+
+            _context.People.Add(newPerson);
+            await _context.SaveChangesAsync();
+
+            // 201 with PersonDTO of new object
+            return CreatedAtAction("GetPerson", new { id = newPerson.Id }, newPerson.ToDTO());
+
         }
 
-        // DELETE: api/Person/5
+        // PATCH: api/XXXX-XXXX
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<PersonDTO>> PatchPerson(Guid id, PatchPersonRequest request)
+        {
+
+            var queriedPerson = await _context.People.FindAsync(id);
+
+            if (queriedPerson == null)
+            {
+                return NotFound(); // 404
+            }
+
+            var validation = request.Validate(_context, queriedPerson.Name);
+
+            if (!validation.IsSuccess())
+            {
+                // 422 with list of errors
+                return UnprocessableEntity(validation.ToJson());
+            }
+
+            // modify entity if request asks for it
+            if (request.Age.HasValue)
+            {
+                queriedPerson.Age = request.Age.Value;
+            }
+
+            if (request.Name != null)
+            {
+                queriedPerson.Name = request.Name;
+            }
+
+            if (request.FavouriteColour != null)
+            {
+                Enum.TryParse(request.FavouriteColour, true, out Colour parsedColour);
+
+                queriedPerson.FavouriteColour = parsedColour;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return queriedPerson.ToDTO();
+        }
+
+        // DELETE: api/XXXX-XXXX
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePerson(Guid id)
         {
@@ -109,31 +128,6 @@ namespace hngx_duo.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        // GET: api/super-secret
-        [HttpGet("super-secret")]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPeople()
-        {
-            if (_context.People == null)
-            {
-                return NotFound();
-            }
-            return await _context.People.ToListAsync();
-        }
-
-        // GET: api/drop-all
-        [HttpGet("drop-all")]
-        public async Task<ActionResult> DropAll()
-        {
-            _context.People.RemoveRange(await _context.People.ToListAsync());
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        private bool PersonExists(Guid id)
-        {
-            return (_context.People?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
