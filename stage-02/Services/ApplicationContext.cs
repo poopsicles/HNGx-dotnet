@@ -12,7 +12,7 @@ public class ApplicationContext : DbContext
     public ApplicationContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
+        var path = Environment.GetFolderPath(folder, Environment.SpecialFolderOption.Create);
 
         DbPath = Path.Join(path, "people.db");
     }

@@ -101,6 +101,16 @@ Run it like:
 
 TODO
 
+Test it with 
+
+```sh
+# Windows/macOS/Linux with Powershell installed
+$ test-api.ps1 $url
+
+# Linux/macOS with a POSIX-compliant shell, curl and jq installed
+$ ./test-api.sh $url
+```
+
 ## Build locally
 
 - Clone the repository:

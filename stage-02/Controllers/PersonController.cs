@@ -17,14 +17,12 @@ namespace hngx_duo.Controllers
         public PersonController(ApplicationContext context)
         {
             _context = context;
-
-            context.Database.EnsureCreated();
         }
 
         // GET: api/XXXX-XXXX
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonDTO>> GetPerson(Guid id)
-        {
+        {   
             if (_context.People == null)
             {
                 return NotFound(); // 404
@@ -125,6 +123,21 @@ namespace hngx_duo.Controllers
             }
 
             _context.People.Remove(person);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // drop all data
+        [HttpDelete("super-secret-drop-all")]
+        public async Task<IActionResult> DeleteAll()
+        {
+            if (_context.People == null)
+            {
+                return NotFound();
+            }
+
+            _context.People.RemoveRange(_context.People);
             await _context.SaveChangesAsync();
 
             return NoContent();
