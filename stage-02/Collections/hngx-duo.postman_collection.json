@@ -1,0 +1,634 @@
+{
+	"info": {
+		"_postman_id": "8b5069b1-6ce0-42ba-a3ca-a6cd203ca804",
+		"name": "HNGx Duo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29716394"
+	},
+	"item": [
+		{
+			"name": "Create new Person",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Response name matches\", function() {\r",
+							"    pm.expect(responsejson.name).to.equal(pm.variables.get(\"generatedName\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response age matches\", function() {\r",
+							"    pm.expect(responsejson.age).to.equal(pm.variables.get(\"generatedAge\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response colour matches\", function() {\r",
+							"    pm.expect(responsejson.favouriteColour).to.equal(pm.variables.get(\"generatedColour\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})\r",
+							"\r",
+							"pm.variables.set('generatedId', responsejson.id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{generatedName}}\",\r\n    \"age\": {{generatedAge}},\r\n    \"favouriteColour\": \"{{generatedColour}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}",
+					"host": [
+						"{{base_api}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recreating first Person",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function() {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Invalid name\", function() {\r",
+							"    pm.expect(responsejson.errors.includes(\"Duplicate name\")).to.equal(true)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Error count\", function() {\r",
+							"    pm.expect(responsejson.errors.length).to.equal(1)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{generatedName}}\",\r\n    \"age\": {{generatedAge}},\r\n    \"favouriteColour\": \"{{generatedColour}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}",
+					"host": [
+						"{{base_api}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Response ID matches\", function() {\r",
+							"    pm.expect(responsejson.id).to.equal(pm.variables.get(\"generatedId\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response name matches\", function() {\r",
+							"    pm.expect(responsejson.name).to.equal(pm.variables.get(\"generatedName\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response age matches\", function() {\r",
+							"    pm.expect(responsejson.age).to.equal(pm.variables.get(\"generatedAge\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response colour matches\", function() {\r",
+							"    pm.expect(responsejson.favouriteColour).to.equal(pm.variables.get(\"generatedColour\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Person name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Response ID matches\", function() {\r",
+							"    pm.expect(responsejson.id).to.equal(pm.variables.get(\"generatedId\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response name matches\", function() {\r",
+							"    pm.expect(responsejson.name).to.equal(pm.variables.get(\"changedName\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{generatedId}}\",\r\n    \"name\": \"{{changedName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Person age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"pm.test(\"Response ID matches\", function() {\r",
+							"    pm.expect(responsejson.id).to.equal(pm.variables.get(\"generatedId\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response age matches\", function() {\r",
+							"    pm.expect(responsejson.age).to.equal(pm.variables.get(\"changedAge\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{generatedId}}\",\r\n    \"age\": {{changedAge}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Person colour",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"pm.test(\"Response ID matches\", function() {\r",
+							"    pm.expect(responsejson.id).to.equal(pm.variables.get(\"generatedId\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response colour matches\", function() {\r",
+							"    pm.expect(responsejson.favouriteColour).to.equal(pm.variables.get(\"changedColour\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{generatedId}}\",\r\n    \"favouriteColour\": \"{{changedColour}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get updated Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Response ID matches\", function() {\r",
+							"    pm.expect(responsejson.id).to.equal(pm.variables.get(\"generatedId\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response name matches\", function() {\r",
+							"    pm.expect(responsejson.name).to.equal(pm.variables.get(\"changedName\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response age matches\", function() {\r",
+							"    pm.expect(responsejson.age).to.equal(pm.variables.get(\"changedAge\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response colour matches\", function() {\r",
+							"    pm.expect(responsejson.favouriteColour).to.equal(pm.variables.get(\"changedColour\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function() {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get deleted Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api}}/{{generatedId}}",
+					"host": [
+						"{{base_api}}"
+					],
+					"path": [
+						"{{generatedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Person",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Response name matches\", function() {\r",
+							"    pm.expect(responsejson.name).to.equal(pm.variables.get(\"generatedName\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response age matches\", function() {\r",
+							"    pm.expect(responsejson.age).to.equal(pm.variables.get(\"generatedAge\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response colour matches\", function() {\r",
+							"    pm.expect(responsejson.favouriteColour).to.equal(pm.variables.get(\"generatedColour\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Result length is 4\", function() {\r",
+							"    pm.expect(Object.keys(responsejson).length).to.equal(4)\r",
+							"})\r",
+							"\r",
+							"pm.variables.set('generatedId', responsejson.id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{generatedName}}\",\r\n    \"age\": {{generatedAge}},\r\n    \"favouriteColour\": \"{{generatedColour}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}",
+					"host": [
+						"{{base_api}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create invalid Person",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function() {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});\r",
+							"\r",
+							"const responsejson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Invalid name\", function() {\r",
+							"    pm.expect(responsejson.errors.includes(\"Duplicate name\")).to.equal(true)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Invalid age\", function() {\r",
+							"    pm.expect(responsejson.errors.includes(\"Age cannot be zero or negative\")).to.equal(true)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Invalid colour\", function() {\r",
+							"    pm.expect(responsejson.errors.includes(\"Invalid colour\")).to.equal(true)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Error count is 3\", function() {\r",
+							"    pm.expect(responsejson.errors.length).to.equal(3)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{generatedName}}\",\r\n    \"age\": -1,\r\n    \"favouriteColour\": \"not-a-colour\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api}}",
+					"host": [
+						"{{base_api}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.variables.has(\"generatedName\")) {",
+					"    pm.variables.set('generatedName', pm.variables.replaceIn('{{$randomFirstName}}'));",
+					"}",
+					"",
+					"if(!pm.variables.has(\"changedName\")) {",
+					"    pm.variables.set('changedName', pm.variables.replaceIn('{{$randomFirstName}}'));",
+					"}",
+					"if(!pm.variables.has(\"generatedAge\")) {",
+					"    pm.variables.set('generatedAge', parseInt(pm.variables.replaceIn('{{$randomInt}}')));",
+					"}",
+					"if(!pm.variables.has(\"changedAge\")) {",
+					"    pm.variables.set('changedAge', parseInt(pm.variables.replaceIn('{{$randomInt}}')));",
+					"}",
+					"if(!pm.variables.has(\"generatedColour\")) {",
+					"    pm.variables.set('generatedColour', randomFaveColour());",
+					"}",
+					"if(!pm.variables.has(\"changedColour\")) {",
+					"    pm.variables.set('changedColour', randomFaveColour());",
+					"}",
+					"",
+					"function randomFaveColour() {",
+					"    const colours = [\"Red\", \"Green\", \"Blue\", \"Yellow\", \"Orange\", \"Purple\", \"Black\"]",
+					"",
+					"    return colours[Math.floor(Math.random() * colours.length)];",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_api",
+			"value": "http://localhost:5185/api",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

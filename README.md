@@ -9,6 +9,7 @@ perhaps I'll make a secret Rust version[^1] and see how far I can go...
 ## Stages cleared:
 
 - 1 - [`stage-one`](stage-01/README.md)
+- 2 - [`stage-two`](stage-02/README.md)
 
 This is a monorepo, check out the actual folders if you want to see any code
 

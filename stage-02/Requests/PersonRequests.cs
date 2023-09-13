@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using hngx_duo.Models;
 using hngx_duo.Services;
 
@@ -5,6 +6,7 @@ namespace hngx_duo.Requests;
 
 // a possible list of errors
 public class ValidationResponse {
+    [JsonInclude]
     public List<string> errors = new();
 
     public bool IsSuccess() {
@@ -36,7 +38,7 @@ public class PostPersonRequest
 
         // names must be unique
         if (_context.People.Any(p => p.Name == Name.Trim())) {
-            response.errors.Add("Name already exists in database");
+            response.errors.Add("Duplicate name");
         }
 
         return response;

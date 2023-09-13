@@ -95,21 +95,46 @@ Host your entire project on GitHub, and provide a well-structured documentation 
 
 </details>
 
-Live demo is at TODO
+Live demo is at [https://hngx-stage-two-c.onrender.com/api](https://hngx-stage-two-c.onrender.com/api)
 
 Run it like:
 
-TODO
+```sh
+curl -X 'POST' \
+    'https://hngx-stage-two-c.onrender.com/api' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "name": "Mary",
+    "age": 10,
+    "favouriteColour": "red"
+}'
+```
+```json
+201 Created
+{
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "Mary",
+    "age": 10,
+    "favouriteColour": "Red"
+}
+```
 
-Test it with 
+You can read more in the [Documentation](DOCUMENTATION.md).
+
+## Testing
+
+A collection (29716394-8b5069b1-6ce0-42ba-a3ca-a6cd203ca804) has been provided with tests, run it using [Postman CLI](https://learning.postman.com/docs/postman-cli/postman-cli-installation) like:
+
+`postman collection run 29716394-8b5069b1-6ce0-42ba-a3ca-a6cd203ca804 --global-var "base_api=<url-to-test>"`. 
+
+For example, to test the live link:
 
 ```sh
-# Windows/macOS/Linux with Powershell installed
-$ test-api.ps1 $url
-
-# Linux/macOS with a POSIX-compliant shell, curl and jq installed
-$ ./test-api.sh $url
+$ postman collection run 29716394-8b5069b1-6ce0-42ba-a3ca-a6cd203ca804 --global-var "base_api=https://hngx-stage-two-c.onrender.com/api"
 ```
+
+A copy of the collection can be found at [Collections\hngx-duo.postman_collection.json](Collections/hngx-duo.postman_collection.json).
 
 ## Build locally
 
