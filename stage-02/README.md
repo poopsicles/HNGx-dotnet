@@ -148,7 +148,7 @@ $ cd HNGx-dotnet/stage-two
 - Build the image:
 
 ```sh
-$ docker build --pull -t hngx-duo/dotnet
+$ docker build . --pull -t hngx-duo/dotnet
 ```
 
 - Run the container:
